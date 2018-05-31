@@ -1,0 +1,48 @@
+<!DocType>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+	$("button").click(function() {
+		//$('#result').text($('#start_point option:selected').text());
+		var dataSend =
+		{ 
+			start_point: $('#start_point option:selected').text(), 
+			end_point: $('#end_point option:selected').text()
+		}
+		$("#result").text("loading...");
+
+		$.post('/search', dataSend, function (data, status) {
+			$("#result").text(data);
+		});
+	});
+});
+
+</script>
+</head>
+
+<!-- <form action = '/search' method = 'post'> -->
+	<div>
+	<p>Start Point</p>
+		<select id = 'start_point'>
+		{{#nodeList}}
+		<option value = {{node}}>{{node}}</option>
+		{{/nodeList}}
+		</select>
+	</div>
+	<div>
+	<p>End Point</p>
+	<select id = 'end_point'>
+		{{#nodeList}}
+		<option value = {{node}}>{{node}}</option>
+		{{/nodeList}}
+	</select>
+	</div>
+	<button>Find</button>
+
+	<p id = 'result'></p>
+<!-- </form> -->
+
+
+</html>
